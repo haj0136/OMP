@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace OpticalMappingParser.Core.Implementation
 {
-    public class OpticalMappingParser : IOpticalMappingParser
+    public class DifficultAreaIdentifier : IOpticalMappingParser
     {
         private Dictionary<int, List<Mark>> _chromosomes;
 
-        public OpticalMappingParser(string path)
+        public DifficultAreaIdentifier(string path)
         {
             LoadFile(path);
         }

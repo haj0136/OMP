@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpticalMappingParser.Core", "OpticalMappingParser.Core\OpticalMappingParser.Core.csproj", "{29DAB229-B629-4705-9187-5F0EA52ED885}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpticalMappingParser.Gui", "OpticalMappingParser.Gui\OpticalMappingParser.Gui.csproj", "{14D931C4-BD0F-4D75-B207-7654DE52128E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{29DAB229-B629-4705-9187-5F0EA52ED885}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29DAB229-B629-4705-9187-5F0EA52ED885}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29DAB229-B629-4705-9187-5F0EA52ED885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14D931C4-BD0F-4D75-B207-7654DE52128E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D931C4-BD0F-4D75-B207-7654DE52128E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D931C4-BD0F-4D75-B207-7654DE52128E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D931C4-BD0F-4D75-B207-7654DE52128E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

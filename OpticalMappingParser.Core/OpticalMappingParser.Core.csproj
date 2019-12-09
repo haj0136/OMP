@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\OpticalMappingParser.cs" />
+    <Compile Include="Implementation\DifficultAreaIdentifier.cs" />
     <Compile Include="Interfaces\IOpticalMappingParser.cs" />
     <Compile Include="Models\DifficultAreaResult.cs" />
     <Compile Include="Models\Mark.cs" />
