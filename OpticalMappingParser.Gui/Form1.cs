@@ -1,8 +1,9 @@
-﻿using OpticalMappingParser.Core.Interfaces;
+﻿using OpticalMappingParser.Core.Implementation;
+using OpticalMappingParser.Core.Interfaces;
+using OpticalMappingParser.Core.Models;
 using System;
-using System.IO;
+using System.Linq;
 using System.Windows.Forms;
-using OpticalMappingParser.Core.Implementation;
 
 
 namespace OpticalMappingParser.Gui
@@ -48,7 +49,7 @@ namespace OpticalMappingParser.Gui
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             var maxLenght = numericUpDownMaxSeqNoMarks.Value;
             var marksCount = numericUpDownConsecutiveMarks.Value;
@@ -60,6 +61,17 @@ namespace OpticalMappingParser.Gui
             dataGridView1.Columns[2].Name = "End position";
             dataGridView1.Columns[3].Name = "Type";
 
+            if (resultList?.Any() != true)
+            {
+                //TODO: Handle null or empty list
+                return;
+            } 
+
+            foreach (DifficultAreaResult result in resultList)
+            {
+                dataGridView1.Rows.Add(result.Chromosome, result.StartPosition, result.EndPosition,
+                    Enum.GetName(typeof(SequenceLength), result.SequenceLength));
+            }
         }
     }
 }
