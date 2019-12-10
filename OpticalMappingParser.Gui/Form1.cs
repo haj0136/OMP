@@ -161,7 +161,7 @@ namespace OpticalMappingParser.Gui
                 var longAreas = distanceTypes.Find(x => x.Key.Equals(SequenceLength.Long));
                 var firstPos = chromosomeGroup.OrderBy(x => x.StartPosition).ElementAt(0).StartPosition;
                 var lastPos = chromosomeGroup.OrderByDescending(x => x.EndPosition).ElementAt(0).EndPosition;
-                dataGridView1.Rows.Add(chromosomeGroup.Key, firstPos, lastPos, longAreas.Count(),
+                dataGridView1.Rows.Add(chromosomeGroup.Key, firstPos.ToString("n0"), lastPos.ToString("n0"), longAreas.Count(),
                     shortAreas.Count());
 
             }
@@ -183,7 +183,7 @@ namespace OpticalMappingParser.Gui
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _identifier.SaveToCsv(saveFileDialog.FileName);
+                _identifier.SaveToCsv(saveFileDialog.FileName, data);
             }
         }
 
@@ -196,7 +196,7 @@ namespace OpticalMappingParser.Gui
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _identifier.SaveToCsv(saveFileDialog.FileName);
+                _identifier.SaveToCsv(saveFileDialog.FileName, filteredResult);
             }
         }
     }
