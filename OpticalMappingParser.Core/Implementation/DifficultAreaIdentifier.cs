@@ -22,7 +22,14 @@ namespace OpticalMappingParser.Core.Implementation
             LoadFile(path);
         }
 
-        public IEnumerable<int> Chromosomes => _chromosomes.Keys;
+        public IEnumerable<int> Chromosomes
+        {
+            get
+            {
+                CheckDataInitialized();
+                return _chromosomes.Keys;
+            }
+        }
 
         public void LoadFile(string path)
         {
@@ -48,32 +55,30 @@ namespace OpticalMappingParser.Core.Implementation
             throw new NotImplementedException();
         }
 
-        public IList<DifficultAreaResult> Process(int maxNoMarksDistance, int maxShortDistance, int maxShortDistanceSequentMarksCount)
+        public IList<DifficultAreaResult> Process(int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount)
         {
-            if (_chromosomes == null)
-                throw new InvalidOperationException("Data not initialized");
+            CheckDataInitialized();
 
             var result = new List<DifficultAreaResult>();
             foreach (var chromosome in _chromosomes)
             {
-                result.AddRange(ProcessChromosome(chromosome.Value, chromosome.Key, maxNoMarksDistance, maxShortDistanceSequentMarksCount, maxShortDistance));
+                result.AddRange(ProcessChromosome(chromosome.Value, chromosome.Key, minLongDistance, maxShortDistance, minShortDistanceSequentMarksCount));
             }
 
             return result;
         }
 
-        public IList<DifficultAreaResult> Process(int maxNoMarksDistance, int maxShortDistance, int maxShortDistanceSequentMarksCount, int chromosomeId, int? fromPosition = null, int? toPosition = null)
+        public IList<DifficultAreaResult> Process(int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount, int chromosomeId, int? fromPosition = null, int? toPosition = null)
         {
-            if (_chromosomes == null)
-                throw new InvalidOperationException("Data not initialized");
+            CheckDataInitialized();
 
             if (!_chromosomes.ContainsKey(chromosomeId))
                 throw new ArgumentOutOfRangeException($"Chromosome {chromosomeId} does not exist");
 
-            return ProcessChromosome(_chromosomes[chromosomeId], chromosomeId, maxNoMarksDistance, maxShortDistanceSequentMarksCount, maxShortDistance, fromPosition, toPosition);
+            return ProcessChromosome(_chromosomes[chromosomeId], chromosomeId, minLongDistance, maxShortDistance, minShortDistanceSequentMarksCount, fromPosition, toPosition);
         }
 
-        private IList<DifficultAreaResult> ProcessChromosome(List<int> chromosome, int chromosomeId, int maxNoMarksDistance, int sequentMarksCount, int maxShortDistance, int? fromPosition = null, int? toPosition = null)
+        private IList<DifficultAreaResult> ProcessChromosome(List<int> chromosome, int chromosomeId, int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount, int? fromPosition = null, int? toPosition = null)
         {
             var result = new List<DifficultAreaResult>();
 
@@ -99,7 +104,7 @@ namespace OpticalMappingParser.Core.Implementation
                 {
                     if (shortAreaStart != -1) // end area
                     {
-                        if ((i - 1) - shortAreaStart >= sequentMarksCount)
+                        if ((i - 1) - shortAreaStart >= minShortDistanceSequentMarksCount)
                         {
                             result.Add(new DifficultAreaResult
                             {
@@ -114,7 +119,7 @@ namespace OpticalMappingParser.Core.Implementation
                 }
 
                 // handle long difficult area
-                if (distance > maxNoMarksDistance)
+                if (distance > minLongDistance)
                 {
                     if (longAreaStart == -1) // start new area
                         longAreaStart = i - 1;
@@ -136,6 +141,12 @@ namespace OpticalMappingParser.Core.Implementation
             }
 
             return result;
+        }
+
+        private void CheckDataInitialized()
+        {
+            if (_chromosomes == null)
+                throw new InvalidOperationException("Data not initialized");
         }
     }
 }

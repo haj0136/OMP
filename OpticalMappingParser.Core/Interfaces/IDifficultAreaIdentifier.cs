@@ -10,7 +10,7 @@ namespace OpticalMappingParser.Core.Interfaces
         void LoadFile(string path);
         void SaveToCsv(string path);
 
-        IList<DifficultAreaResult> Process(int maxNoMarksDistance, int maxShortDistance, int maxShortDistanceSequentMarksCount);
-        IList<DifficultAreaResult> Process(int maxNoMarksDistance, int maxShortDistance, int maxShortDistanceSequentMarksCount, int chromosomeId, int? fromPosition = null, int? toPosition = null);
+        IList<DifficultAreaResult> Process(int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount);
+        IList<DifficultAreaResult> Process(int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount, int chromosomeId, int? fromPosition = null, int? toPosition = null);
     }
 }
