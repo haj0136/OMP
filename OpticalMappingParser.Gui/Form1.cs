@@ -39,6 +39,8 @@ namespace OpticalMappingParser.Gui
                     var fileName = openFileDialog1.FileName;
                     _parser = new DifficultAreaIdentifier(fileName);
                     generateButton.Enabled = true;
+
+                    ChromosomeComboBox.Items.AddRange(_parser.Chromosomes.Cast<object>().ToArray());
                 }
                 catch (Exception exception)
                 {
