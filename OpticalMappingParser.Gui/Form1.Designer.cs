@@ -51,7 +51,7 @@
             this.numericUpDownEndPos = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownStartPos = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ChromosomeComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.parametrsGroupBox.SuspendLayout();
@@ -251,7 +251,7 @@
             this.filterGroupBox.Controls.Add(this.numericUpDownEndPos);
             this.filterGroupBox.Controls.Add(this.numericUpDownStartPos);
             this.filterGroupBox.Controls.Add(this.label5);
-            this.filterGroupBox.Controls.Add(this.comboBox1);
+            this.filterGroupBox.Controls.Add(this.ChromosomeComboBox);
             this.filterGroupBox.Controls.Add(this.label4);
             this.filterGroupBox.Location = new System.Drawing.Point(5, 28);
             this.filterGroupBox.Name = "filterGroupBox";
@@ -264,9 +264,9 @@
             // 
             this.newProcessButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.newProcessButton.Location = new System.Drawing.Point(13, 381);
+            this.newProcessButton.Location = new System.Drawing.Point(10, 381);
             this.newProcessButton.Name = "newProcessButton";
-            this.newProcessButton.Size = new System.Drawing.Size(219, 23);
+            this.newProcessButton.Size = new System.Drawing.Size(222, 23);
             this.newProcessButton.TabIndex = 8;
             this.newProcessButton.Text = "New Process";
             this.newProcessButton.UseVisualStyleBackColor = true;
@@ -341,15 +341,15 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Start position:";
             // 
-            // comboBox1
+            // ChromosomeComboBox
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ChromosomeComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(9, 43);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(234, 21);
-            this.comboBox1.TabIndex = 1;
+            this.ChromosomeComboBox.FormattingEnabled = true;
+            this.ChromosomeComboBox.Location = new System.Drawing.Point(9, 43);
+            this.ChromosomeComboBox.Name = "ChromosomeComboBox";
+            this.ChromosomeComboBox.Size = new System.Drawing.Size(234, 21);
+            this.ChromosomeComboBox.TabIndex = 1;
             // 
             // label4
             // 
@@ -367,8 +367,8 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.parametrsGroupBox);
             this.Controls.Add(this.filterGroupBox);
+            this.Controls.Add(this.parametrsGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -408,7 +408,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownMaxSeqBetweenMarks;
         private System.Windows.Forms.Button generateButton;
         private System.Windows.Forms.GroupBox filterGroupBox;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ChromosomeComboBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericUpDownEndPos;
