@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpticalMappingParser.Core",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpticalMappingParser.Gui", "OpticalMappingParser.Gui\OpticalMappingParser.Gui.csproj", "{14D931C4-BD0F-4D75-B207-7654DE52128E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpticalMappingParser.Tests", "OpticalMappingParser.Tests\OpticalMappingParser.Tests.csproj", "{864EBC7C-3B5B-4CAC-A11F-E1690835F8EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{14D931C4-BD0F-4D75-B207-7654DE52128E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14D931C4-BD0F-4D75-B207-7654DE52128E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14D931C4-BD0F-4D75-B207-7654DE52128E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{864EBC7C-3B5B-4CAC-A11F-E1690835F8EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{864EBC7C-3B5B-4CAC-A11F-E1690835F8EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{864EBC7C-3B5B-4CAC-A11F-E1690835F8EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{864EBC7C-3B5B-4CAC-A11F-E1690835F8EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
