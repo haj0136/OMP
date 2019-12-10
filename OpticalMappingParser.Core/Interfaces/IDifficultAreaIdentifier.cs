@@ -8,7 +8,7 @@ namespace OpticalMappingParser.Core.Interfaces
         IEnumerable<int> Chromosomes { get; }
 
         void LoadFile(string path);
-        void SaveToCsv(string path);
+        void SaveToCsv(string path, IEnumerable<DifficultAreaResult> results);
 
         IList<DifficultAreaResult> Process(int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount);
         IList<DifficultAreaResult> Process(int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount, int chromosomeId, int? fromPosition = null, int? toPosition = null);

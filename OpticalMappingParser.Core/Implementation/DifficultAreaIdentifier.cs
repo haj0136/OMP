@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace OpticalMappingParser.Core.Implementation
 {
@@ -50,9 +51,16 @@ namespace OpticalMappingParser.Core.Implementation
                 .ToDictionary(e => e.Key, e => e.Select(x => x.Position).ToList());
         }
 
-        public void SaveToCsv(string path)
+        public void SaveToCsv(string path, IEnumerable<DifficultAreaResult> results)
         {
-            throw new NotImplementedException();
+            const string header = "chromosome,start,end,area_type";
+
+            var sb = new StringBuilder();
+            sb.AppendLine(header);
+            foreach (var result in results)
+                sb.AppendLine(ToCsvRow(result));
+
+            File.WriteAllText(path, sb.ToString());
         }
 
         public IList<DifficultAreaResult> Process(int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount)
@@ -80,16 +88,32 @@ namespace OpticalMappingParser.Core.Implementation
 
         private IList<DifficultAreaResult> ProcessChromosome(List<int> chromosome, int chromosomeId, int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount, int? fromPosition = null, int? toPosition = null)
         {
-            var result = new List<DifficultAreaResult>();
-
             var positions = chromosome.ToList();
             if (fromPosition.HasValue)
                 positions = positions.Where(e => e >= fromPosition).ToList();
             if (toPosition.HasValue)
                 positions = positions.Where(e => e <= toPosition).ToList();
 
+            var result = new List<DifficultAreaResult>();
             int shortAreaStart = -1;
             int longAreaStart = -1;
+
+            void AddResult(int currentPosition, SequenceLength sequenceLength)
+            {
+                result.Add(new DifficultAreaResult
+                {
+                    Chromosome = chromosomeId,
+                    StartPosition = positions[sequenceLength == SequenceLength.Short ? shortAreaStart : longAreaStart],
+                    EndPosition = positions[currentPosition - 1],
+                    SequenceLength = sequenceLength,
+                });
+
+                if (sequenceLength == SequenceLength.Short)
+                    shortAreaStart = -1;
+                else
+                    longAreaStart = -1;
+            }
+
             for (int i = 1; i < positions.Count; i++)
             {
                 int distance = positions[i] - positions[i - 1];
@@ -105,16 +129,9 @@ namespace OpticalMappingParser.Core.Implementation
                     if (shortAreaStart != -1) // end area
                     {
                         if ((i - 1) - shortAreaStart >= minShortDistanceSequentMarksCount)
-                        {
-                            result.Add(new DifficultAreaResult
-                            {
-                                Chromosome = chromosomeId,
-                                StartPosition = positions[shortAreaStart],
-                                EndPosition = positions[i - 1],
-                                SequenceLength = SequenceLength.Short,
-                            });
+                            AddResult(i, SequenceLength.Short);
+                        else
                             shortAreaStart = -1;
-                        }
                     }
                 }
 
@@ -127,18 +144,15 @@ namespace OpticalMappingParser.Core.Implementation
                 else
                 {
                     if (longAreaStart != -1) // end area
-                    {
-                        result.Add(new DifficultAreaResult
-                        {
-                            Chromosome = chromosomeId,
-                            StartPosition = positions[longAreaStart],
-                            EndPosition = positions[i - 1],
-                            SequenceLength = SequenceLength.Long,
-                        });
-                        longAreaStart = -1;
-                    }
+                        AddResult(i, SequenceLength.Long);
                 }
             }
+
+            // handle unresolved difficult areas
+            if (shortAreaStart != -1 && positions.Count - 1 - shortAreaStart >= minShortDistanceSequentMarksCount)
+                AddResult(positions.Count, SequenceLength.Short);
+            if (longAreaStart != -1)
+                AddResult(positions.Count, SequenceLength.Long);
 
             return result;
         }
@@ -147,6 +161,11 @@ namespace OpticalMappingParser.Core.Implementation
         {
             if (_chromosomes == null)
                 throw new InvalidOperationException("Data not initialized");
+        }
+
+        private string ToCsvRow(DifficultAreaResult result)
+        {
+            return $"{result.Chromosome},{result.StartPosition},{result.EndPosition},{(result.SequenceLength == SequenceLength.Short ? "S" : "L")}";
         }
     }
 }
