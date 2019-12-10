@@ -10,7 +10,8 @@ namespace OpticalMappingParser.Core.Implementation
 {
     public class DifficultAreaIdentifier : IOpticalMappingParser
     {
-        private Dictionary<int, List<Mark>> _chromosomes;
+        // (chromosomeId, [position])
+        private Dictionary<int, List<int>> _chromosomes;
 
         public DifficultAreaIdentifier()
         {
@@ -33,13 +34,13 @@ namespace OpticalMappingParser.Core.Implementation
             _chromosomes = data
                 .Where(e => e[0] != '#')
                 .Select(e => e.Split('\t'))
-                .Select(e => new Mark
+                .Select(e => new
                 {
                     Chromosome = int.Parse(e[0]),
                     Position = (int)float.Parse(e[5], CultureInfo.InvariantCulture),
                 })
                 .GroupBy(e => e.Chromosome)
-                .ToDictionary(e => e.Key, e => e.ToList());
+                .ToDictionary(e => e.Key, e => e.Select(x => x.Position).ToList());
         }
 
         public void SaveToCsv(string path)
@@ -49,6 +50,9 @@ namespace OpticalMappingParser.Core.Implementation
 
         public IList<DifficultAreaResult> Process(int maxNoMarksLength, int sequentMarksCount, int maxShortDistance)
         {
+            if (_chromosomes == null)
+                throw new InvalidOperationException("Data not initialized");
+
             var result = new List<DifficultAreaResult>();
             foreach (var chromosomeId in Chromosomes)
             {
@@ -56,6 +60,15 @@ namespace OpticalMappingParser.Core.Implementation
             }
 
             return result;
+        }
+
+
+        public IList<DifficultAreaResult> Process(int maxNoMarksLength, int sequentMarksCount, int maxMarksDistance, int chromosome, int positionStart, int positionEnd)
+        {
+            if (_chromosomes == null)
+                throw new InvalidOperationException("Data not initialized");
+
+            throw new NotImplementedException();
         }
 
         private IList<DifficultAreaResult> ProcessChromosome(int chromosomeId, int maxNoMarksLength, int sequentMarksCount, int maxShortDistance)
@@ -67,7 +80,7 @@ namespace OpticalMappingParser.Core.Implementation
             int longAreaStart = -1;
             for (int i = 1; i < chromosome.Count; i++)
             {
-                int distance = chromosome[i].Position - chromosome[i - 1].Position;
+                int distance = chromosome[i] - chromosome[i - 1];
 
                 // handle short difficult area
                 if (distance <= maxShortDistance)
@@ -84,8 +97,8 @@ namespace OpticalMappingParser.Core.Implementation
                             result.Add(new DifficultAreaResult
                             {
                                 Chromosome = chromosomeId,
-                                StartPosition = chromosome[shortAreaStart].Position,
-                                EndPosition = chromosome[i - 1].Position,
+                                StartPosition = chromosome[shortAreaStart],
+                                EndPosition = chromosome[i - 1],
                                 SequenceLength = SequenceLength.Short,
                             });
                             shortAreaStart = -1;
@@ -106,8 +119,8 @@ namespace OpticalMappingParser.Core.Implementation
                         result.Add(new DifficultAreaResult
                         {
                             Chromosome = chromosomeId,
-                            StartPosition = chromosome[longAreaStart].Position,
-                            EndPosition = chromosome[i - 1].Position,
+                            StartPosition = chromosome[longAreaStart],
+                            EndPosition = chromosome[i - 1],
                             SequenceLength = SequenceLength.Long,
                         });
                         longAreaStart = -1;
@@ -116,12 +129,6 @@ namespace OpticalMappingParser.Core.Implementation
             }
 
             return result;
-        }
-
-        public IList<DifficultAreaResult> Process(int maxNoMarksLength, int sequentMarksCount, int maxMarksDistance, int chromosome, int positionStart,
-            int positionEnd)
-        {
-            throw new NotImplementedException();
         }
     }
 }

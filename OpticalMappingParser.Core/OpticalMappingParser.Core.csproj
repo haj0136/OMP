@@ -44,7 +44,6 @@
     <Compile Include="Implementation\DifficultAreaIdentifier.cs" />
     <Compile Include="Interfaces\IOpticalMappingParser.cs" />
     <Compile Include="Models\DifficultAreaResult.cs" />
-    <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\SequenceLength.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
