@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace OpticalMappingParser.Core.Implementation
 {
-    public class DifficultAreaIdentifier : IOpticalMappingParser
+    public class DifficultAreaIdentifier : IDifficultAreaIdentifier
     {
         // (chromosomeId, [position])
         private Dictionary<int, List<int>> _chromosomes;
@@ -48,39 +48,46 @@ namespace OpticalMappingParser.Core.Implementation
             throw new NotImplementedException();
         }
 
-        public IList<DifficultAreaResult> Process(int maxNoMarksLength, int sequentMarksCount, int maxShortDistance)
+        public IList<DifficultAreaResult> Process(int maxNoMarksDistance, int maxShortDistance, int maxShortDistanceSequentMarksCount)
         {
             if (_chromosomes == null)
                 throw new InvalidOperationException("Data not initialized");
 
             var result = new List<DifficultAreaResult>();
-            foreach (var chromosomeId in Chromosomes)
+            foreach (var chromosome in _chromosomes)
             {
-                result.AddRange(ProcessChromosome(chromosomeId, maxNoMarksLength, sequentMarksCount, maxShortDistance));
+                result.AddRange(ProcessChromosome(chromosome.Value, chromosome.Key, maxNoMarksDistance, maxShortDistanceSequentMarksCount, maxShortDistance));
             }
 
             return result;
         }
 
-
-        public IList<DifficultAreaResult> Process(int maxNoMarksLength, int sequentMarksCount, int maxMarksDistance, int chromosome, int positionStart, int positionEnd)
+        public IList<DifficultAreaResult> Process(int maxNoMarksDistance, int maxShortDistance, int maxShortDistanceSequentMarksCount, int chromosomeId, int? fromPosition = null, int? toPosition = null)
         {
             if (_chromosomes == null)
                 throw new InvalidOperationException("Data not initialized");
 
-            throw new NotImplementedException();
+            if (!_chromosomes.ContainsKey(chromosomeId))
+                throw new ArgumentOutOfRangeException($"Chromosome {chromosomeId} does not exist");
+
+            return ProcessChromosome(_chromosomes[chromosomeId], chromosomeId, maxNoMarksDistance, maxShortDistanceSequentMarksCount, maxShortDistance, fromPosition, toPosition);
         }
 
-        private IList<DifficultAreaResult> ProcessChromosome(int chromosomeId, int maxNoMarksLength, int sequentMarksCount, int maxShortDistance)
+        private IList<DifficultAreaResult> ProcessChromosome(List<int> chromosome, int chromosomeId, int maxNoMarksDistance, int sequentMarksCount, int maxShortDistance, int? fromPosition = null, int? toPosition = null)
         {
-            var chromosome = _chromosomes[chromosomeId];
             var result = new List<DifficultAreaResult>();
+
+            var positions = chromosome.ToList();
+            if (fromPosition.HasValue)
+                positions = positions.Where(e => e >= fromPosition).ToList();
+            if (toPosition.HasValue)
+                positions = positions.Where(e => e <= toPosition).ToList();
 
             int shortAreaStart = -1;
             int longAreaStart = -1;
-            for (int i = 1; i < chromosome.Count; i++)
+            for (int i = 1; i < positions.Count; i++)
             {
-                int distance = chromosome[i] - chromosome[i - 1];
+                int distance = positions[i] - positions[i - 1];
 
                 // handle short difficult area
                 if (distance <= maxShortDistance)
@@ -97,8 +104,8 @@ namespace OpticalMappingParser.Core.Implementation
                             result.Add(new DifficultAreaResult
                             {
                                 Chromosome = chromosomeId,
-                                StartPosition = chromosome[shortAreaStart],
-                                EndPosition = chromosome[i - 1],
+                                StartPosition = positions[shortAreaStart],
+                                EndPosition = positions[i - 1],
                                 SequenceLength = SequenceLength.Short,
                             });
                             shortAreaStart = -1;
@@ -107,7 +114,7 @@ namespace OpticalMappingParser.Core.Implementation
                 }
 
                 // handle long difficult area
-                if (distance > maxNoMarksLength)
+                if (distance > maxNoMarksDistance)
                 {
                     if (longAreaStart == -1) // start new area
                         longAreaStart = i - 1;
@@ -119,8 +126,8 @@ namespace OpticalMappingParser.Core.Implementation
                         result.Add(new DifficultAreaResult
                         {
                             Chromosome = chromosomeId,
-                            StartPosition = chromosome[longAreaStart],
-                            EndPosition = chromosome[i - 1],
+                            StartPosition = positions[longAreaStart],
+                            EndPosition = positions[i - 1],
                             SequenceLength = SequenceLength.Long,
                         });
                         longAreaStart = -1;

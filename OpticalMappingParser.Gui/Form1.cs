@@ -2,7 +2,6 @@
 using OpticalMappingParser.Core.Interfaces;
 using OpticalMappingParser.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -11,7 +10,7 @@ namespace OpticalMappingParser.Gui
 {
     public partial class Form1 : Form
     {
-        private IOpticalMappingParser _parser;
+        private IDifficultAreaIdentifier _identifier;
 
         public Form1()
         {
@@ -30,17 +29,17 @@ namespace OpticalMappingParser.Gui
 
         private void LoadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _parser = new DifficultAreaIdentifier("../../../TestFiles/hg19_DLE1_0kb_0labels.cmap");
+            _identifier = new DifficultAreaIdentifier("../../../TestFiles/hg19_DLE1_0kb_0labels.cmap");
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                     var fileName = openFileDialog1.FileName;
-                    _parser = new DifficultAreaIdentifier(fileName);
+                    _identifier = new DifficultAreaIdentifier(fileName);
                     generateButton.Enabled = true;
 
-                    ChromosomeComboBox.Items.AddRange(_parser.Chromosomes.Cast<object>().ToArray());
+                    ChromosomeComboBox.Items.AddRange(_identifier.Chromosomes.Cast<object>().ToArray());
                 }
                 catch (Exception exception)
                 {
@@ -56,7 +55,7 @@ namespace OpticalMappingParser.Gui
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _parser.SaveToCsv(saveFileDialog.FileName);
+                _identifier.SaveToCsv(saveFileDialog.FileName);
             }
 
         }
@@ -66,7 +65,7 @@ namespace OpticalMappingParser.Gui
             var maxLenght = numericUpDownMaxSeqNoMarks.Value;
             var marksCount = numericUpDownConsecutiveMarks.Value;
             var minLenght = numericUpDownMaxSeqBetweenMarks.Value;
-            var resultList = _parser.Process((int)maxLenght, (int)marksCount, (int)minLenght);
+            var resultList = _identifier.Process((int)maxLenght, (int)minLenght, (int)marksCount);
             //List<DifficultAreaResult> resultList = null;
 
             if (resultList?.Any() != true)
@@ -74,7 +73,7 @@ namespace OpticalMappingParser.Gui
                 //TODO: Handle null or empty list
                 MessageBox.Show("Not found any difficult areas.");
                 return;
-            } 
+            }
 
             foreach (DifficultAreaResult result in resultList)
             {
