@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace OpticalMappingParser.Core.Implementation
 {
@@ -50,9 +51,16 @@ namespace OpticalMappingParser.Core.Implementation
                 .ToDictionary(e => e.Key, e => e.Select(x => x.Position).ToList());
         }
 
-        public void SaveToCsv(string path)
+        public void SaveToCsv(string path, IEnumerable<DifficultAreaResult> results)
         {
-            throw new NotImplementedException();
+            const string header = "chromosome,start,end,area_type";
+
+            var sb = new StringBuilder();
+            sb.AppendLine(header);
+            foreach (var result in results)
+                sb.AppendLine(ToCsvRow(result));
+
+            File.WriteAllText(path, sb.ToString());
         }
 
         public IList<DifficultAreaResult> Process(int minLongDistance, int maxShortDistance, int minShortDistanceSequentMarksCount)
@@ -153,6 +161,11 @@ namespace OpticalMappingParser.Core.Implementation
         {
             if (_chromosomes == null)
                 throw new InvalidOperationException("Data not initialized");
+        }
+
+        private string ToCsvRow(DifficultAreaResult result)
+        {
+            return $"{result.Chromosome},{result.StartPosition},{result.EndPosition},{(result.SequenceLength == SequenceLength.Short ? "S" : "L")}";
         }
     }
 }

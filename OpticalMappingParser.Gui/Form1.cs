@@ -55,7 +55,7 @@ namespace OpticalMappingParser.Gui
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _identifier.SaveToCsv(saveFileDialog.FileName);
+                _identifier.SaveToCsv(saveFileDialog.FileName, null); // todo
             }
 
         }

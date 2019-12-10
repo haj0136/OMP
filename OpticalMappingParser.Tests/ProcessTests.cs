@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpticalMappingParser.Core.Implementation;
 using OpticalMappingParser.Core.Models;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace OpticalMappingParser.Tests
@@ -232,6 +234,31 @@ namespace OpticalMappingParser.Tests
         {
             _identifier.LoadFile("../../../TestFiles/hg19_DLE1_0kb_0labels.cmap");
             var result = _identifier.Process(1000, 100, 10);
+        }
+
+        [TestMethod]
+        public void CanSaveToCsv()
+        {
+            string expectedCsv = "chromosome,start,end,area_type\r\n1,10,30,L\r\n2,50,60,S\r\n";
+            string path = Path.GetTempFileName();
+
+            var results = new List<DifficultAreaResult>
+            {
+                new DifficultAreaResult{Chromosome = 1, StartPosition = 10, EndPosition = 30, SequenceLength = SequenceLength.Long},
+                new DifficultAreaResult{Chromosome = 2, StartPosition = 50, EndPosition = 60, SequenceLength = SequenceLength.Short},
+            };
+
+            try
+            {
+                _identifier.SaveToCsv(path, results);
+                string actualCsv = File.ReadAllText(path);
+
+                Assert.AreEqual(expectedCsv, actualCsv);
+            }
+            finally
+            {
+                File.Delete(path);
+            }
         }
     }
 }
