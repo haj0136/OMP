@@ -47,12 +47,6 @@ namespace OpticalMappingParser.Gui
             }
         }
 
-        private void saveFileToCSVToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
         private void Button1_Click(object sender, EventArgs e)
         {
             var maxLength = numericUpDownMaxSeqNoMarks.Value;
@@ -111,9 +105,9 @@ namespace OpticalMappingParser.Gui
                 return;
             }
 
-            if (startPos == -1)
+            if (!startPosCheckBox.Checked)
                 startPos = null;
-            if (endPos == 0)
+            if (!endPosCheckBox.Checked)
                 endPos = null;
 
             filteredResult = _identifier.Process(maxLength, minLength, marksCount, chromosome, startPos, endPos);
@@ -121,7 +115,6 @@ namespace OpticalMappingParser.Gui
 
             if (filteredResult?.Any() != true)
             {
-                //TODO: Handle null or empty list
                 MessageBox.Show("Not found any difficult areas with selected filters.");
                 return;
             }
@@ -140,6 +133,7 @@ namespace OpticalMappingParser.Gui
             }
 
             saveFilteredResultMenuItem.Enabled = true;
+            clearFiltersButton.Enabled = true;
         }
 
         private void ShowStatistics()
@@ -172,6 +166,7 @@ namespace OpticalMappingParser.Gui
         {
             dataGridView1.Rows.Clear();
             ShowStatistics();
+            clearFiltersButton.Enabled = false;
         }
 
         private void saveCompleteResultMenuItem_Click(object sender, EventArgs e)
@@ -198,6 +193,21 @@ namespace OpticalMappingParser.Gui
             {
                 _identifier.SaveToCsv(saveFileDialog.FileName, filteredResult);
             }
+        }
+
+        private void NumericUpDownStartPos_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDownEndPos.Minimum = numericUpDownStartPos.Value + 1;
+        }
+
+        private void startPosCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownStartPos.Enabled = startPosCheckBox.Checked;
+        }
+
+        private void endPosCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownEndPos.Enabled = endPosCheckBox.Checked;
         }
     }
 }

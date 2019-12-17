@@ -47,6 +47,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.filterGroupBox = new System.Windows.Forms.GroupBox();
+            this.endPosCheckBox = new System.Windows.Forms.CheckBox();
+            this.startPosCheckBox = new System.Windows.Forms.CheckBox();
             this.newProcessButton = new System.Windows.Forms.Button();
             this.FilterButton = new System.Windows.Forms.Button();
             this.clearFiltersButton = new System.Windows.Forms.Button();
@@ -92,7 +94,7 @@
             // 
             this.loadFileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.loadFileToolStripMenuItem.Text = "Load File";
             this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.LoadFileToolStripMenuItem_Click);
             // 
@@ -104,7 +106,7 @@
             this.saveFileToCSVToolStripMenuItem.Enabled = false;
             this.saveFileToCSVToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.saveFileToCSVToolStripMenuItem.Name = "saveFileToCSVToolStripMenuItem";
-            this.saveFileToCSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveFileToCSVToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.saveFileToCSVToolStripMenuItem.Text = "Save File to CSV";
             // 
             // saveCompleteResultMenuItem
@@ -278,6 +280,8 @@
             // 
             this.filterGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.filterGroupBox.Controls.Add(this.endPosCheckBox);
+            this.filterGroupBox.Controls.Add(this.startPosCheckBox);
             this.filterGroupBox.Controls.Add(this.newProcessButton);
             this.filterGroupBox.Controls.Add(this.FilterButton);
             this.filterGroupBox.Controls.Add(this.clearFiltersButton);
@@ -293,6 +297,26 @@
             this.filterGroupBox.TabIndex = 3;
             this.filterGroupBox.TabStop = false;
             this.filterGroupBox.Text = "Filter settings";
+            // 
+            // endPosCheckBox
+            // 
+            this.endPosCheckBox.AutoSize = true;
+            this.endPosCheckBox.Location = new System.Drawing.Point(84, 135);
+            this.endPosCheckBox.Name = "endPosCheckBox";
+            this.endPosCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.endPosCheckBox.TabIndex = 10;
+            this.endPosCheckBox.UseVisualStyleBackColor = true;
+            this.endPosCheckBox.CheckedChanged += new System.EventHandler(this.endPosCheckBox_CheckedChanged);
+            // 
+            // startPosCheckBox
+            // 
+            this.startPosCheckBox.AutoSize = true;
+            this.startPosCheckBox.Location = new System.Drawing.Point(84, 81);
+            this.startPosCheckBox.Name = "startPosCheckBox";
+            this.startPosCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.startPosCheckBox.TabIndex = 9;
+            this.startPosCheckBox.UseVisualStyleBackColor = true;
+            this.startPosCheckBox.CheckedChanged += new System.EventHandler(this.startPosCheckBox_CheckedChanged);
             // 
             // newProcessButton
             // 
@@ -322,6 +346,7 @@
             // 
             this.clearFiltersButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearFiltersButton.Enabled = false;
             this.clearFiltersButton.Location = new System.Drawing.Point(10, 352);
             this.clearFiltersButton.Name = "clearFiltersButton";
             this.clearFiltersButton.Size = new System.Drawing.Size(222, 23);
@@ -339,20 +364,26 @@
             this.label6.Size = new System.Drawing.Size(68, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "End position:";
-            this.toolTip1.SetToolTip(this.label6, "End position is optional parametr, set 0 to skip this parametr");
+            this.toolTip1.SetToolTip(this.label6, "End position is optional parametr\r\n");
             // 
             // numericUpDownEndPos
             // 
             this.numericUpDownEndPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownEndPos.Enabled = false;
             this.numericUpDownEndPos.Increment = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDownEndPos.Location = new System.Drawing.Point(10, 151);
+            this.numericUpDownEndPos.Location = new System.Drawing.Point(10, 155);
             this.numericUpDownEndPos.Maximum = new decimal(new int[] {
             1000,
+            0,
+            0,
+            0});
+            this.numericUpDownEndPos.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -360,36 +391,33 @@
             this.numericUpDownEndPos.Size = new System.Drawing.Size(233, 20);
             this.numericUpDownEndPos.TabIndex = 4;
             this.numericUpDownEndPos.ThousandsSeparator = true;
+            this.numericUpDownEndPos.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // numericUpDownStartPos
             // 
             this.numericUpDownStartPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownStartPos.Enabled = false;
             this.numericUpDownStartPos.Increment = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDownStartPos.Location = new System.Drawing.Point(10, 96);
+            this.numericUpDownStartPos.Location = new System.Drawing.Point(9, 100);
             this.numericUpDownStartPos.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDownStartPos.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
             this.numericUpDownStartPos.Name = "numericUpDownStartPos";
             this.numericUpDownStartPos.Size = new System.Drawing.Size(233, 20);
             this.numericUpDownStartPos.TabIndex = 3;
             this.numericUpDownStartPos.ThousandsSeparator = true;
-            this.numericUpDownStartPos.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
+            this.numericUpDownStartPos.ValueChanged += new System.EventHandler(this.NumericUpDownStartPos_ValueChanged);
             // 
             // label5
             // 
@@ -401,7 +429,7 @@
             this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 2;
             this.label5.Text = "Start position:";
-            this.toolTip1.SetToolTip(this.label5, "Start position is optional parametr, set -1 to skip this parameter");
+            this.toolTip1.SetToolTip(this.label5, "Start position is optional parametr\r\n");
             // 
             // chromosomeComboBox
             // 
@@ -483,6 +511,8 @@
         private System.Windows.Forms.ToolStripMenuItem saveCompleteResultMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveFilteredResultMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox endPosCheckBox;
+        private System.Windows.Forms.CheckBox startPosCheckBox;
     }
 }
 
