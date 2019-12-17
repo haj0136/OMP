@@ -1,6 +1,6 @@
 ﻿namespace OpticalMappingParser.Core.Models
 {
-    public enum SequenceLength
+    public enum DifficultAreaType
     {
         Short,
         Long,

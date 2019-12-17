@@ -98,17 +98,17 @@ namespace OpticalMappingParser.Core.Implementation
             int shortAreaStart = -1;
             int longAreaStart = -1;
 
-            void AddResult(int currentPosition, SequenceLength sequenceLength)
+            void AddResult(int currentPosition, DifficultAreaType sequenceLength)
             {
                 result.Add(new DifficultAreaResult
                 {
                     Chromosome = chromosomeId,
-                    StartPosition = positions[sequenceLength == SequenceLength.Short ? shortAreaStart : longAreaStart],
+                    StartPosition = positions[sequenceLength == DifficultAreaType.Short ? shortAreaStart : longAreaStart],
                     EndPosition = positions[currentPosition - 1],
-                    SequenceLength = sequenceLength,
+                    DifficultAreaType = sequenceLength,
                 });
 
-                if (sequenceLength == SequenceLength.Short)
+                if (sequenceLength == DifficultAreaType.Short)
                     shortAreaStart = -1;
                 else
                     longAreaStart = -1;
@@ -129,9 +129,9 @@ namespace OpticalMappingParser.Core.Implementation
                     if (shortAreaStart != -1) // end area
                     {
                         if ((i - 1) - shortAreaStart >= minShortDistanceSequentMarksCount)
-                            AddResult(i, SequenceLength.Short);
-                        else
-                            shortAreaStart = -1;
+                            AddResult(i, DifficultAreaType.Short);
+
+                        shortAreaStart = -1;
                     }
                 }
 
@@ -144,15 +144,15 @@ namespace OpticalMappingParser.Core.Implementation
                 else
                 {
                     if (longAreaStart != -1) // end area
-                        AddResult(i, SequenceLength.Long);
+                        AddResult(i, DifficultAreaType.Long);
                 }
             }
 
             // handle unresolved difficult areas
             if (shortAreaStart != -1 && positions.Count - 1 - shortAreaStart >= minShortDistanceSequentMarksCount)
-                AddResult(positions.Count, SequenceLength.Short);
+                AddResult(positions.Count, DifficultAreaType.Short);
             if (longAreaStart != -1)
-                AddResult(positions.Count, SequenceLength.Long);
+                AddResult(positions.Count, DifficultAreaType.Long);
 
             return result;
         }
@@ -165,7 +165,7 @@ namespace OpticalMappingParser.Core.Implementation
 
         private string ToCsvRow(DifficultAreaResult result)
         {
-            return $"{result.Chromosome},{result.StartPosition},{result.EndPosition},{(result.SequenceLength == SequenceLength.Short ? "S" : "L")}";
+            return $"{result.Chromosome},{result.StartPosition},{result.EndPosition},{(result.DifficultAreaType == DifficultAreaType.Short ? "S" : "L")}";
         }
     }
 }

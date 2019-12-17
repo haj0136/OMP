@@ -30,7 +30,7 @@ namespace OpticalMappingParser.Tests
             Assert.AreEqual(1, result[0].Chromosome);
             Assert.AreEqual(100, result[0].StartPosition);
             Assert.AreEqual(200, result[0].EndPosition);
-            Assert.AreEqual(SequenceLength.Long, result[0].SequenceLength);
+            Assert.AreEqual(DifficultAreaType.Long, result[0].DifficultAreaType);
         }
 
         [TestMethod]
@@ -51,7 +51,7 @@ namespace OpticalMappingParser.Tests
             Assert.AreEqual(1, result[0].Chromosome);
             Assert.AreEqual(100, result[0].StartPosition);
             Assert.AreEqual(120, result[0].EndPosition);
-            Assert.AreEqual(SequenceLength.Short, result[0].SequenceLength);
+            Assert.AreEqual(DifficultAreaType.Short, result[0].DifficultAreaType);
         }
 
         [TestMethod]
@@ -91,13 +91,13 @@ namespace OpticalMappingParser.Tests
 
             Assert.AreEqual(2, result.Count);
 
-            var shortArea = result.SingleOrDefault(e => e.SequenceLength == SequenceLength.Short);
+            var shortArea = result.SingleOrDefault(e => e.DifficultAreaType == DifficultAreaType.Short);
             Assert.IsNotNull(shortArea);
             Assert.AreEqual(1, shortArea.Chromosome);
             Assert.AreEqual(100, shortArea.StartPosition);
             Assert.AreEqual(150, shortArea.EndPosition);
 
-            var longArea = result.SingleOrDefault(e => e.SequenceLength == SequenceLength.Long);
+            var longArea = result.SingleOrDefault(e => e.DifficultAreaType == DifficultAreaType.Long);
             Assert.IsNotNull(longArea);
             Assert.AreEqual(1, longArea.Chromosome);
             Assert.AreEqual(150, longArea.StartPosition);
@@ -123,7 +123,7 @@ namespace OpticalMappingParser.Tests
 
             Assert.AreEqual(2000, result[0].StartPosition);
             Assert.AreEqual(2100, result[0].EndPosition);
-            Assert.AreEqual(SequenceLength.Long, result[0].SequenceLength);
+            Assert.AreEqual(DifficultAreaType.Long, result[0].DifficultAreaType);
         }
 
         [TestMethod]
@@ -145,7 +145,7 @@ namespace OpticalMappingParser.Tests
 
             Assert.AreEqual(50, result[0].StartPosition);
             Assert.AreEqual(2000, result[0].EndPosition);
-            Assert.AreEqual(SequenceLength.Long, result[0].SequenceLength);
+            Assert.AreEqual(DifficultAreaType.Long, result[0].DifficultAreaType);
         }
 
         [TestMethod]
@@ -167,7 +167,7 @@ namespace OpticalMappingParser.Tests
 
             Assert.AreEqual(1500, result[0].StartPosition);
             Assert.AreEqual(1700, result[0].EndPosition);
-            Assert.AreEqual(SequenceLength.Long, result[0].SequenceLength);
+            Assert.AreEqual(DifficultAreaType.Long, result[0].DifficultAreaType);
         }
 
         [TestMethod]
@@ -187,7 +187,7 @@ namespace OpticalMappingParser.Tests
 
             Assert.AreEqual(10, result[0].StartPosition);
             Assert.AreEqual(30, result[0].EndPosition);
-            Assert.AreEqual(SequenceLength.Short, result[0].SequenceLength);
+            Assert.AreEqual(DifficultAreaType.Short, result[0].DifficultAreaType);
         }
 
         [TestMethod]
@@ -207,7 +207,7 @@ namespace OpticalMappingParser.Tests
 
             Assert.AreEqual(100, result[0].StartPosition);
             Assert.AreEqual(300, result[0].EndPosition);
-            Assert.AreEqual(SequenceLength.Long, result[0].SequenceLength);
+            Assert.AreEqual(DifficultAreaType.Long, result[0].DifficultAreaType);
         }
 
         [TestMethod]
@@ -244,8 +244,8 @@ namespace OpticalMappingParser.Tests
 
             var results = new List<DifficultAreaResult>
             {
-                new DifficultAreaResult{Chromosome = 1, StartPosition = 10, EndPosition = 30, SequenceLength = SequenceLength.Long},
-                new DifficultAreaResult{Chromosome = 2, StartPosition = 50, EndPosition = 60, SequenceLength = SequenceLength.Short},
+                new DifficultAreaResult{Chromosome = 1, StartPosition = 10, EndPosition = 30, DifficultAreaType = DifficultAreaType.Long},
+                new DifficultAreaResult{Chromosome = 2, StartPosition = 50, EndPosition = 60, DifficultAreaType = DifficultAreaType.Short},
             };
 
             try
