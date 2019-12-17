@@ -82,6 +82,7 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadFileToolStripMenuItem,
             this.saveFileToCSVToolStripMenuItem});
@@ -92,37 +93,39 @@
             // 
             // loadFileToolStripMenuItem
             // 
+            this.loadFileToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.loadFileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.loadFileToolStripMenuItem.Text = "Load File";
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadFileToolStripMenuItem.Text = "Load";
             this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.LoadFileToolStripMenuItem_Click);
             // 
             // saveFileToCSVToolStripMenuItem
             // 
+            this.saveFileToCSVToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.saveFileToCSVToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveCompleteResultMenuItem,
             this.saveFilteredResultMenuItem});
             this.saveFileToCSVToolStripMenuItem.Enabled = false;
             this.saveFileToCSVToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.saveFileToCSVToolStripMenuItem.Name = "saveFileToCSVToolStripMenuItem";
-            this.saveFileToCSVToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.saveFileToCSVToolStripMenuItem.Text = "Save File to CSV";
+            this.saveFileToCSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveFileToCSVToolStripMenuItem.Text = "Save to CSV";
             // 
             // saveCompleteResultMenuItem
             // 
             this.saveCompleteResultMenuItem.Enabled = false;
             this.saveCompleteResultMenuItem.Name = "saveCompleteResultMenuItem";
-            this.saveCompleteResultMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.saveCompleteResultMenuItem.Text = "Save complete result";
+            this.saveCompleteResultMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveCompleteResultMenuItem.Text = "Complete result";
             this.saveCompleteResultMenuItem.Click += new System.EventHandler(this.SaveCompleteResultMenuItem_Click);
             // 
             // saveFilteredResultMenuItem
             // 
             this.saveFilteredResultMenuItem.Enabled = false;
             this.saveFilteredResultMenuItem.Name = "saveFilteredResultMenuItem";
-            this.saveFilteredResultMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.saveFilteredResultMenuItem.Text = "Save filtered result";
+            this.saveFilteredResultMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveFilteredResultMenuItem.Text = "Filtered result";
             this.saveFilteredResultMenuItem.Click += new System.EventHandler(this.SaveFilteredResultMenuItem_Click);
             // 
             // openFileDialog1
