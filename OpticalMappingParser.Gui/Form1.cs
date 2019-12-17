@@ -39,6 +39,7 @@ namespace OpticalMappingParser.Gui
                     generateButton.Enabled = true;
 
                     chromosomeComboBox.Items.AddRange(_identifier.Chromosomes.Cast<object>().ToArray());
+                    newProcessButton.PerformClick();
                 }
                 catch (Exception exception)
                 {
@@ -91,7 +92,6 @@ namespace OpticalMappingParser.Gui
 
         private void FilterButton_Click(object sender, EventArgs e)
         {
-
             var maxLength = (int)numericUpDownMaxSeqNoMarks.Value;
             var marksCount = (int)numericUpDownConsecutiveMarks.Value;
             var minLength = (int)numericUpDownMaxSeqBetweenMarks.Value;
@@ -157,9 +157,7 @@ namespace OpticalMappingParser.Gui
                 var lastPos = chromosomeGroup.OrderByDescending(x => x.EndPosition).ElementAt(0).EndPosition;
                 dataGridView1.Rows.Add(chromosomeGroup.Key, firstPos.ToString("n0"), lastPos.ToString("n0"), longAreas.Count(),
                     shortAreas.Count());
-
             }
-
         }
 
         private void ClearFiltersButton_Click(object sender, EventArgs e)
@@ -169,7 +167,7 @@ namespace OpticalMappingParser.Gui
             clearFiltersButton.Enabled = false;
         }
 
-        private void saveCompleteResultMenuItem_Click(object sender, EventArgs e)
+        private void SaveCompleteResultMenuItem_Click(object sender, EventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
             {
@@ -182,7 +180,7 @@ namespace OpticalMappingParser.Gui
             }
         }
 
-        private void saveFilteredResultMenuItem_Click(object sender, EventArgs e)
+        private void SaveFilteredResultMenuItem_Click(object sender, EventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
             {
@@ -205,7 +203,7 @@ namespace OpticalMappingParser.Gui
             numericUpDownStartPos.Enabled = startPosCheckBox.Checked;
         }
 
-        private void endPosCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void EndPosCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownEndPos.Enabled = endPosCheckBox.Checked;
         }

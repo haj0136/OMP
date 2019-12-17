@@ -115,7 +115,7 @@
             this.saveCompleteResultMenuItem.Name = "saveCompleteResultMenuItem";
             this.saveCompleteResultMenuItem.Size = new System.Drawing.Size(183, 22);
             this.saveCompleteResultMenuItem.Text = "Save complete result";
-            this.saveCompleteResultMenuItem.Click += new System.EventHandler(this.saveCompleteResultMenuItem_Click);
+            this.saveCompleteResultMenuItem.Click += new System.EventHandler(this.SaveCompleteResultMenuItem_Click);
             // 
             // saveFilteredResultMenuItem
             // 
@@ -123,7 +123,7 @@
             this.saveFilteredResultMenuItem.Name = "saveFilteredResultMenuItem";
             this.saveFilteredResultMenuItem.Size = new System.Drawing.Size(183, 22);
             this.saveFilteredResultMenuItem.Text = "Save filtered result";
-            this.saveFilteredResultMenuItem.Click += new System.EventHandler(this.saveFilteredResultMenuItem_Click);
+            this.saveFilteredResultMenuItem.Click += new System.EventHandler(this.SaveFilteredResultMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -306,7 +306,7 @@
             this.endPosCheckBox.Size = new System.Drawing.Size(15, 14);
             this.endPosCheckBox.TabIndex = 10;
             this.endPosCheckBox.UseVisualStyleBackColor = true;
-            this.endPosCheckBox.CheckedChanged += new System.EventHandler(this.endPosCheckBox_CheckedChanged);
+            this.endPosCheckBox.CheckedChanged += new System.EventHandler(this.EndPosCheckBox_CheckedChanged);
             // 
             // startPosCheckBox
             // 
@@ -326,7 +326,7 @@
             this.newProcessButton.Name = "newProcessButton";
             this.newProcessButton.Size = new System.Drawing.Size(222, 23);
             this.newProcessButton.TabIndex = 8;
-            this.newProcessButton.Text = "New Process";
+            this.newProcessButton.Text = "Back";
             this.newProcessButton.UseVisualStyleBackColor = true;
             this.newProcessButton.Click += new System.EventHandler(this.NewProcessButton_Click);
             // 
@@ -351,7 +351,7 @@
             this.clearFiltersButton.Name = "clearFiltersButton";
             this.clearFiltersButton.Size = new System.Drawing.Size(222, 23);
             this.clearFiltersButton.TabIndex = 6;
-            this.clearFiltersButton.Text = "Clear Filters";
+            this.clearFiltersButton.Text = "Clear Filtered Results";
             this.clearFiltersButton.UseVisualStyleBackColor = true;
             this.clearFiltersButton.Click += new System.EventHandler(this.ClearFiltersButton_Click);
             // 
