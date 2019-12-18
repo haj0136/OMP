@@ -28,8 +28,6 @@ namespace OpticalMappingParser.Gui
 
         private void LoadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _identifier = new DifficultAreaIdentifier("../../../TestFiles/hg19_DLE1_0kb_0labels.cmap");
-
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
