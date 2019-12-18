@@ -12,3 +12,8 @@ Download latest version from [realeases](https://github.com/maras49/OMP/releases
 * **Marek Hajdík** - https://github.com/maras49
 
 See also the list of [contributors](https://github.com/maras49/OMP/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
