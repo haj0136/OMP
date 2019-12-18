@@ -150,13 +150,12 @@ namespace OpticalMappingParser.Gui
 
             foreach (var chromosomeGroup in chromosomesGroups)
             {
-                var distanceTypes = chromosomeGroup.GroupBy(x => x.DifficultAreaType).ToList();
-                var shortAreas = distanceTypes.Find(x => x.Key.Equals(DifficultAreaType.Short));
-                var longAreas = distanceTypes.Find(x => x.Key.Equals(DifficultAreaType.Long));
-                var firstPos = chromosomeGroup.OrderBy(x => x.StartPosition).ElementAt(0).StartPosition;
+                var shortAreas = chromosomeGroup.Count(x => x.DifficultAreaType == DifficultAreaType.Short);
+                var longAreasCount = chromosomeGroup.Count(x => x.DifficultAreaType == DifficultAreaType.Long);
+                var firstPosCount = chromosomeGroup.OrderBy(x => x.StartPosition).ElementAt(0).StartPosition;
                 var lastPos = chromosomeGroup.OrderByDescending(x => x.EndPosition).ElementAt(0).EndPosition;
-                dataGridView1.Rows.Add(chromosomeGroup.Key, firstPos.ToString("n0"), lastPos.ToString("n0"), longAreas.Count(),
-                    shortAreas.Count());
+                dataGridView1.Rows.Add(chromosomeGroup.Key, firstPosCount.ToString("n0"), lastPos.ToString("n0"), longAreasCount,
+                    shortAreas);
             }
         }
 
