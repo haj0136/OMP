@@ -7,7 +7,7 @@
     <ProjectGuid>{14D931C4-BD0F-4D75-B207-7654DE52128E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>OpticalMappingParser.Gui</RootNamespace>
-    <AssemblyName>OpticalMappingParser.Gui</AssemblyName>
+    <AssemblyName>DifficultAreaIdentifier</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
