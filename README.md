@@ -1,7 +1,7 @@
 # Optical Mapping Parser with GUI
 
-School project of sbuject Algorithms for Bioinformatics (ABI).
-The goal of this project is to identify difficult areas for optical mapping.
+School project of subject Algorithms for Bioinformatics (ABI).
+The goal of this project is to identify difficult areas for [optical mapping](https://en.wikipedia.org/wiki/Optical_mapping). 
 
 ## Getting Started
 Download latest version from [realeases](https://github.com/maras49/OMP/releases) and run `DifficultAreaIdentifier.exe`
